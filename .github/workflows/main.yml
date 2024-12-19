@@ -56,7 +56,7 @@ jobs:
           ./cruelbuild config                    \
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
-                       toolchain=$TOOLCHAIN      \
+                       toolchain=cruel           \
                        +magisk=v25.1             \
                        +nohardening              \
                        +ttl                      \
@@ -69,6 +69,8 @@ jobs:
                        +boeffla_wl_blocker       \
                        +always_permit            \
                        +always_enforce           \
+                       +os_patch_level=2021-03-01 \
+                       +1000hz
           2>&1 | tee config.info
 
       - name: Install gcc-aarch64-linux-gnu
