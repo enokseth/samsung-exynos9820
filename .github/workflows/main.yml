@@ -55,9 +55,9 @@ jobs:
           set -e -o pipefail
           ./cruelbuild config                    \
                        model=${{ matrix.model }} \
-                       name="Graphene-Kernel-"   \
+                       name="Omega-Kernel"       \
                        toolchain=$TOOLCHAIN      \
-                       +magisk                   \
+                       +magisk=v25.1             \
                        +nohardening              \
                        +ttl                      \
                        +wireguard                \
@@ -67,6 +67,8 @@ jobs:
                        +force_dex_wqhd           \
                        +morosound                \
                        +boeffla_wl_blocker       \
+                       +always_permit            \
+                       +always_enforce           \
           2>&1 | tee config.info
 
       - name: Install gcc-aarch64-linux-gnu
