@@ -58,7 +58,7 @@ jobs:
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=cruel           \
-                       +magisk=25.1               \
+                       +magisk=28                \
                        +nohardening              \
                        +ttl                      \
                        +wireguard                \
