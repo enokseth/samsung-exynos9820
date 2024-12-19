@@ -54,6 +54,7 @@ jobs:
         run: |
           set -e -o pipefail
           ./cruelbuild config                    \
+                       os_patch_level=2020-04    \
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=cruel           \
@@ -69,7 +70,6 @@ jobs:
                        +boeffla_wl_blocker       \
                        +always_permit            \
                        +always_enforce           \
-                       +os_patch_level=2020-12   \
                        +1000hz
           2>&1 | tee config.info
 
