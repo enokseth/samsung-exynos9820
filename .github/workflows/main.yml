@@ -68,8 +68,6 @@ jobs:
                        +force_dex_wqhd           \
                        +morosound                \
                        +boeffla_wl_blocker       \
-                       +always_permit            \
-                       +always_enforce           \
                        +1000hz
           2>&1 | tee config.info
 
