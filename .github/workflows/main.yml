@@ -69,7 +69,7 @@ jobs:
                        +boeffla_wl_blocker       \
                        +always_permit            \
                        +always_enforce           \
-                       +os_patch_level=2021-03-01 \
+                       +os_patch_level=2021-03   \
                        +1000hz
           2>&1 | tee config.info
 
