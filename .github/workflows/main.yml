@@ -57,7 +57,7 @@ jobs:
                        os_patch_level=2020-12    \
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
-                       toolchain=default         \
+                       toolchain=proton         \
                        +magisk=v25.1             \
                        +nohardening              \
                        +ttl                      \
