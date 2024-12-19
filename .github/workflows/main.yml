@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 env:
-  TOOLCHAIN: arm
+  TOOLCHAIN: cruel
   INSTALLER: yes
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        model: [ "G973F"]
+        model: [ "G973F", "G975F]
 
     steps:
       - uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=$TOOLCHAIN      \
-                       +magisk=v25.1             \
+                       +magisk=v28               \
                        +nohardening              \
                        +ttl                      \
                        +wireguard                \
