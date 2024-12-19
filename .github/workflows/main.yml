@@ -54,7 +54,7 @@ jobs:
         run: |
           set -e -o pipefail
           ./cruelbuild config                    \
-                       os_patch_level=2020-04    \
+                       os_patch_level=2020-12    \
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=default         \
