@@ -26,7 +26,6 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: sudo apt-get install -y -qq libtinfo5 ccache
 
-
       - name: Disable compression in ccache and set ccache path
         run: ccache -o compression=false -o cache_dir=$HOME/.ccache
 
@@ -76,11 +75,13 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: sudo apt-get install -y -qq gcc-aarch64-linux-gnu
+
       - name: Install clang
         if: env.TOOLCHAIN == 'system-clang'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: sudo apt-get install -y -qq llvm lld clang
+
       - name: Deploy Toolchain
         if: env.TOOLCHAIN != 'system-gcc' && env.TOOLCHAIN != 'system-clang'
         run: git clone --depth 1 -j $(nproc) --branch $TOOLCHAIN --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain
@@ -94,11 +95,13 @@ jobs:
           chmod +x mkbootimg.py
           sudo mv mkbootimg.py /usr/local/bin/mkbootimg
           sudo mv gki $(python -c 'import site; print(site.getsitepackages()[0])')
+
       - name: Install mkdtboimg
         run: |
           wget -q https://android.googlesource.com/platform/system/libufdt/+archive/refs/heads/master.tar.gz -O - | tar --strip-components 2 -xzf - utils/src/mkdtboimg.py
           chmod +x mkdtboimg.py
           sudo mv mkdtboimg.py /usr/local/bin/mkdtboimg
+
       - name: Install avbtool
         run: |
           wget -q https://android.googlesource.com/platform/external/avb/+archive/refs/heads/master.tar.gz -O - | tar xzf - avbtool.py
@@ -107,6 +110,7 @@ jobs:
 
       - name: Create CruelKernel images for ${{ matrix.model }}
         run: ./cruelbuild :mkimg
+
       - name: Create CruelKernel installer for ${{ matrix.model }}
         if: env.INSTALLER == 'yes'
         run: ./cruelbuild :pack
@@ -116,6 +120,7 @@ jobs:
         run: |
           mkdir -p installer && cd installer
           unzip ../CruelKernel.zip
+
       - name: Upload Kernel Zip
         if: env.INSTALLER == 'yes'
         uses: actions/upload-artifact@v4
@@ -123,6 +128,7 @@ jobs:
           name: CruelKernel-${{ matrix.model }}
           path: installer/*
           if-no-files-found: error
+
       - name: Upload Kernel Images
         if: env.INSTALLER != 'yes'
         uses: actions/upload-artifact@v4
@@ -137,3 +143,24 @@ jobs:
           name: ConfigurationInfo-${{ matrix.model }}
           path: config.*
           if-no-files-found: error
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ matrix.model }}-${{ github.run_number }}
+          name: Kernel-${{ matrix.model }} Build ${{ github.run_number }}
+          body: |
+            ## Kernel Build Details
+            - **Model**: ${{ matrix.model }}
+            - **Toolchain**: ${{ env.TOOLCHAIN }}
+            - **Installer**: ${{ env.INSTALLER }}
+            - **Build Number**: ${{ github.run_number }}
+          files: |
+            installer/*  # Include the installer files
+            *.img        # Include kernel images
+            config.*     # Include build config information
+          draft: false
+          prerelease: false
