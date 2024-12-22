@@ -159,8 +159,8 @@ jobs:
             - **Installer**: ${{ env.INSTALLER }}
             - **Build Number**: ${{ github.run_number }}
           files: |
-            installer/*  # Include the installer files
-            *.img        # Include kernel images
-            config.*     # Include build config information
+            installer/*  # Inclure les fichiers du zip
+            *.img        # Inclure les images kernel
+            config.*     # Inclure les informations de configuration
           draft: false
           prerelease: false
