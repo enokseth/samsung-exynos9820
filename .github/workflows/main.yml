@@ -57,7 +57,7 @@ jobs:
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=$TOOLCHAIN      \
-                       +magisk=v28.1             \
+                       +magisk=v28.0             \
                        +nohardening              \
                        +ttl                      \
                        +wireguard                \
