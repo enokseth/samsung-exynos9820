@@ -16,7 +16,7 @@ jobs:
         model: ["G975F"]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.7'
@@ -41,7 +41,7 @@ jobs:
         run: echo "::set-output name=KEY::$( echo ${{ matrix.model }} | tr ',' '_' )"
 
       - name: Cache ccache files
-        uses: actions/cache@v3
+        uses: actions/cache@v4.2.0
         with:
           path: ~/.ccache
           key: ccache-${{ env.TOOLCHAIN }}-${{ steps.ccache_model_key.outputs.KEY }}-${{ steps.ccache_timestamp.outputs.FULL_DATE }}
@@ -68,7 +68,8 @@ jobs:
                        +force_dex_wqhd           \
                        +morosound                \
                        +boeffla_wl_blocker       \
-                       +1000hz
+                       +300hz                    \
+                       mass_storage
           2>&1 | tee config.info
 
       - name: Install gcc-aarch64-linux-gnu
