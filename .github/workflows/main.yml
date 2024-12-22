@@ -33,7 +33,7 @@ jobs:
         id: ccache_timestamp
         run: |
           echo "::set-output name=FULL_DATE::$(date +'%Y-%m-%d')"
-          echo "::set-output name=MONTH_DATE::$(date +'%Y-%m-%d')"
+          echo "::set-output name=MONTH_DATE::$(date +'%Y-%m')"
 
       - name: Create cache key from ${{ matrix.model }}
         id: ccache_model_key
@@ -53,7 +53,7 @@ jobs:
         run: |
           set -e -o pipefail
           ./cruelbuild config                   \
-                       os_patch_level=2020-4    \
+                       os_patch_level=2020-04    \
                        model=${{ matrix.model }} \
                        name="Omega-Kernel"       \
                        toolchain=$TOOLCHAIN      \
