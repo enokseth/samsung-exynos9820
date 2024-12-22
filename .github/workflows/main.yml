@@ -69,7 +69,7 @@ jobs:
                        +morosound                \
                        +boeffla_wl_blocker       \
                        +300hz                    \
-                       mass_storage
+                       +mass_storage
           2>&1 | tee config.info
 
       - name: Install gcc-aarch64-linux-gnu
