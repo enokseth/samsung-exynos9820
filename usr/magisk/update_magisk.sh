@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#usr/magisk/update_magisk.sh
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
